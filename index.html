@@ -2,10 +2,15 @@
 <html>
 
 <head>
+  <title>Your Favorite Restaurant Review App</title>
+  <meta name="viewport" content="width=device-widthinitial-scale=1.0">
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+  
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-  <title>Restaurant Reviews</title>
 </head>
 
 <body>
@@ -32,6 +37,14 @@
       <ul id="restaurants-list"></ul>
     </section>
   </main>
+  <div id='map' style='width: 400px; height: 300px;'></div>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Vib2Vyc21hIiwiYSI6ImNqbTB6cnJnYjJhM3Eza3F2MnZpMTd3NnQifQ._dUm64nyRbDTb6HpVJgqOA';
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v10'
+  });
+  </script>
   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
