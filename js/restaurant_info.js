@@ -6,6 +6,9 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
+
+  // insert current year for copyright
+  document.querySelector('#yr').innerHTML = new Date().getFullYear();
 });
 
 /**
@@ -71,7 +74,15 @@ fetchRestaurantFromURL = (callback) => {
         return;
       }
       fillRestaurantHTML();
-      callback(null, restaurant)
+      callback(null, restaurant);
+
+      // customize page title  
+      let mainTitle = 'Your Favorite Restaurant Review App';
+      let docTitle = document.getElementsByTagName('title')[0];
+
+      let newName = restaurant.name + ' | ' + mainTitle;
+
+      docTitle.innerText = newName;
     });
   }
 }
@@ -80,6 +91,7 @@ fetchRestaurantFromURL = (callback) => {
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
+  
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
@@ -97,8 +109,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
+
   // fill reviews
   fillReviewsHTML();
+ 
 }
 
 /**
@@ -147,23 +161,64 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
+
+  // create container list item
   const li = document.createElement('li');
-  const name = document.createElement('p');
+
+  const header = document.createElement('div');
+
+  // add class to header
+  let className = document.createAttribute('class');
+  className.value = 'review-header';
+  header.setAttributeNode(className);
+
+  // create element for author name
+  let name = document.createElement('p');
+
+  // add class to author field
+  className = document.createAttribute('class');
+  className.value = 'author';
+  name.setAttributeNode(className);
+
   name.innerHTML = review.name;
-  li.appendChild(name);
+  header.appendChild(name);
 
+  // create element for date posted
   const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
 
+  // add class to date posted field
+  className = document.createAttribute('class');
+  className.value = 'postDate';
+  date.setAttributeNode(className);
+
+  date.innerHTML = review.date;
+  header.appendChild(date);
+
+  li.appendChild(header);
+
+  // create element for rating
   const rating = document.createElement('p');
+
+  // add class to rating field
+  className = document.createAttribute('class');
+  className.value = 'rating';
+  rating.setAttributeNode(className);
+
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
+  // create element to contain the message
   const comments = document.createElement('p');
+
+  // add class to message field
+  className = document.createAttribute('class');
+  className.value = 'message';
+  comments.setAttributeNode(className);
+
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
+  // output review
   return li;
 }
 

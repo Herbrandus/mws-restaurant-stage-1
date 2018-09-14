@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
+
+  // insert current year for copyright
+  document.querySelector('#yr').innerHTML = new Date().getFullYear();
 });
 
 /**
@@ -161,7 +164,14 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  
+
+  const imglink = document.createElement('a');
+  imglink.href = DBHelper.urlForRestaurant(restaurant);
+
+  imglink.append(image);
+
+  li.append(imglink);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -178,6 +188,11 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+
+  let className = document.createAttribute('class');
+  className.value = 'detailsBtn';
+  more.setAttributeNode(className);
+
   li.append(more)
 
   return li
