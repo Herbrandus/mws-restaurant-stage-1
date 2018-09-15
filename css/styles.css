@@ -227,6 +227,15 @@ nav h1 a {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+#restaurants-list li a.detailsBtn:hover {
+  background-color: #3397DB;
 }
 
 #maincontent + #map {
@@ -333,16 +342,15 @@ nav h1 a {
   position: relative;
   width: 90%;
   max-width: 800px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 #reviews-list li .review-header {
-  padding: 6px 12px;
+  padding: 7px 20px;
   background: #333;
   color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 15px;  
   margin: 0 0 15px 0;
 }
 
@@ -382,6 +390,10 @@ nav h1 a {
 
 #restaurant-hours td {
   color: #666;
+}
+
+address {
+  font-style: normal;
 }
 
 @media screen and (min-width: 1651px) {
@@ -441,12 +453,21 @@ nav h1 a {
   }
   
   nav > h1 {
-    padding: 15px 0;
+    padding: 15px;
   }
   
   #breadcrumb {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
     width: auto;
-    padding: 10px 7px;
+    padding: 10px 15px;
+    z-index: 100;
+  }
+
+  .inside #maincontent {
+    margin-top: 43px;
   }
 
   body.inside #map-container {
@@ -535,7 +556,4 @@ nav h1 a {
     padding: 15px 20px 25px 20px;
   }
 
-  #reviews-list li {
-    padding: 20px;
-  }
 }
