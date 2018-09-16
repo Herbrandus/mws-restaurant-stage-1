@@ -110,6 +110,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
 
+  // give the reviews list an aria label
+  let reviewsLabel = document.createAttribute('aria-label');
+  reviewsLabel.value = 'Reviews about ' + restaurant.name;
+  document.getElementById('reviews-list').setAttributeNode(reviewsLabel);
+
   // fill reviews
   fillReviewsHTML();
  
@@ -165,8 +170,13 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 createReviewHTML = (review) => {
 
   // create container list item
-  const li = document.createElement('li');
+  let li = document.createElement('li');
 
+  // add role to list item
+  let listRole = document.createAttribute('role');
+  listRole.value = 'listitem';
+  li.setAttributeNode(listRole);
+  
   const header = document.createElement('div');
 
   // add class to header
@@ -186,7 +196,7 @@ createReviewHTML = (review) => {
   header.appendChild(name);
 
   // create element for date posted
-  const date = document.createElement('p');
+  let date = document.createElement('p');
 
   // add class to date posted field
   className = document.createAttribute('class');
@@ -229,10 +239,10 @@ createReviewHTML = (review) => {
  */
 fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
-  const li = document.createElement('li');
+  let li = document.createElement('li');
 
-  const ariaLabel = document.createAttribute('aria-current');
-  ariaLabel = 'page';
+  let ariaLabel = document.createAttribute('aria-current');
+  ariaLabel.value = 'page';
   li.setAttributeNode(ariaLabel);
   li.innerHTML = restaurant.name;
   breadcrumb.appendChild(li);

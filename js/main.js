@@ -178,15 +178,20 @@ createRestaurantHTML = (restaurant, iterator) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   
   let imgAlt = document.createAttribute('alt');
-  imgAlt.value = 'Photo of ' + restaurant.name;
+  imgAlt.value = 'Thumbnail photo of ' + restaurant.name;
   image.setAttributeNode(imgAlt);
 
   // enclose image in an extra anchor
-  const imglink = document.createElement('a');
-  imglink.href = DBHelper.urlForRestaurant(restaurant);
-  imglink.append(image);
+  const imgLink = document.createElement('a');
+  imgLink.href = DBHelper.urlForRestaurant(restaurant);
+  imgLink.append(image);
 
-  li.append(imglink);
+  // set title attribute for image link
+  let linkTitle = document.createAttribute('title');
+  linkTitle.value = restaurant.name;
+  imgLink.setAttributeNode(linkTitle);
+
+  li.append(imgLink);
 
   // add title of restaurant
   const name = document.createElement('h2');
@@ -217,6 +222,11 @@ createRestaurantHTML = (restaurant, iterator) => {
   let linkRole = document.createAttribute('role');
   linkRole.value = 'button';
   more.setAttributeNode(linkRole);
+
+  // give anchor an aria label attribute
+  let ariaLabelLink = document.createAttribute('aria-label');
+  ariaLabelLink.value = 'More details about ' + restaurant.name;
+  more.setAttributeNode(ariaLabelLink);
 
   // give anchor a tabindex of an incrementing number
   let tabindex = document.createAttribute('tabindex');

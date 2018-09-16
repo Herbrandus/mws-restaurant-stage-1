@@ -22,7 +22,9 @@
   <body>
     <header>
       <nav>
-        <h1><a href="/">Restaurant Reviews</a></h1>
+        <h1>
+          <a href="/">Restaurant Reviews</a>
+        </h1>
       </nav>
     </header>
 
@@ -36,17 +38,17 @@
         <!-- Beginning filter options -->
         <div class="filter-options">
           <h2>Filter Results</h2>
-          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" tabindex="1">
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" tabindex="1" aria-label="Filter by neighborhood">
             <option value="all">All Neighborhoods</option>
           </select>
-          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" tabindex="2">
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" tabindex="2" aria-label="Filter by cuisine">
             <option value="all">All Cuisines</option>
           </select>
         </div>
         <!-- End of filter options -->
 
         <!-- Beginning listing of restaurants -->
-        <ul id="restaurants-list" role="list"></ul>
+        <ul id="restaurants-list" role="list" aria-label="List of restaurants"></ul>
 
       </section>
     </main>
