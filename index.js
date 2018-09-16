@@ -2,27 +2,53 @@
 /* written by Gerben Boersma */
 
 /*	Name for cache to use */
-const cacheName = 'restaurant-review-v1';
+const staticCacheName = 'restaurant-review-v1';
+
+/*  Array of files to cache */
+let cacheFiles = [
+	'/skeleton',
+	'/index.html',
+	'/restaurant.html',
+	'/js/dbhelper.js',
+	'/js/index.js',
+	'/js/main.js',
+	'/js/restaurant_info.js',
+	'/css/styles.css',
+	'https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js',
+	'https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css',
+	'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css']
+
 
 /*	Handle installation of Service Worker
  *
  */
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
 
 	event.waitUntil(
-		caches.open(cacheName).then(function(cache) {
-			return cache.addAll([
-				'index.html',
-				'restaurant.html',
-				'js/dbhelper.js',
-				'js/index.js',
-				'js/main.js',
-				'js/restaurant_info.js',
-				'css/styles.css'
-			]);
-		})
-	);
+    caches.open(staticCacheName).then(function(cache) {
+      return cache.addAll(cacheFiles);
+    })
+  );
 
+});
+
+
+/*	Execute once the Service Worker is activated
+ *
+ */
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          return cacheName.startsWith('restaurant-review-') &&
+                 cacheName != staticCacheName;
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })
+  );
 });
 
 
@@ -32,26 +58,8 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
 
 	event.respondWith(
-		fetch(event.request).then(function(response) {
-			if (response.status == 404) {
-				
-				// respond with this when 404
-				return new Response('<p style="font-family:arial;font-size:15px;">The page you\'re looking for does not exist!</p>', {
-					headers: {'Content-Type': 'text/html'}
-				});
-
-			} else {
-
-				// otherwise return regular website
-				return response;
-			}
-
-		}).catch(function() {
-
-			// respond with this html when offline
-			return new Response('<p style="font-family:arial;font-size:15px;">The page you\'re looking for does not exist!</p>', {
-				headers: {'Content-Type': 'text/html'}
-			});
-		})
+	    caches.match(event.request).then(function(response) {
+	      return response || fetch(event.request);
+	    })
 	);
 });
