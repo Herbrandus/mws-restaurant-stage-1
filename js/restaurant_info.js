@@ -97,9 +97,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   // create the alt tag for the restaurant image
-  let imgAlt = document.createAttribute('alt');
-  imgAlt.value = 'Photo of ' + restaurant.name;
-  image.setAttributeNode(imgAlt);
+  imgAlt.alt = 'Photo of ' + restaurant.name;
 
   // create label for cuisine of restaurant
   const cuisine = document.getElementById('restaurant-cuisine');

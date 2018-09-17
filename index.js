@@ -2,7 +2,7 @@
 /* written by Gerben Boersma */
 
 /*	Name for cache to use */
-const staticCacheName = 'restaurant-review-v5';
+const staticCacheName = 'restaurant-review-v6';
 
 /*  Array of files to cache */
 let cacheFiles = [
@@ -39,6 +39,11 @@ self.addEventListener('fetch', function(event) {
 	if (requestUrl.origin === location.origin) {
 		if (requestUrl.pathname === '/') {
 			event.respondWith(caches.match('/index.html'));
+			return;
+		}
+
+		if (requestUrl.pathname === '/restaurant.html') {
+			event.respondWith(caches.match('/restaurant.html', {ignoreSearch: true}));
 			return;
 		}
 	}
